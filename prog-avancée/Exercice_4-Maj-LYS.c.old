@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int longueurChaine(char*);
+void low2up(char*);
+
+int main(){
+	char message[255]="Bonjour";
+	low2up(message);
+	return 0;
+}
+
+//Exercice 1
+int longueurChaine(char* message){
+	int i=0;
+	int longueur=0;
+
+	for (i=0;message[i]!='\0';i++){
+		longueur++;
+	}
+	return longueur;
+}
+
+//Exercice 4
+void low2up(char* message){
+	int a=longueurChaine(message);
+	int i=0;
+	for (i=0;i<=a;i++){
+		if ((message[i]<='z')&&(message[i]>='a')){
+			message[i]=message[i]+'A'-'a';
+		}
+	}
+	printf("Le message en majuscule uniquement est: \n%s\n",message);
+}
