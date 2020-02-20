@@ -11,29 +11,29 @@
 // faire une var3 qui prend la valeur du pointeur du tab2
 // soit
 /*
-int** tab;
+double** tab;
 tab=malloc(4*sizeof(int*));
 for (int i=0; i<4;i++){
 tab[i]=malloc(3*sizeof(int));
 }
 */
 
-void afficheMat(int**,int,int);
-int** createMat(int,int);
-void delMat(int**,int,int);
-void remplirMatAlea(int**,int,int);
-void multMat(int**,int,int,int**,int,int,int**,int,int);
-void remplirMat(int**,int,int);
-void remplirMatZero(int**,int,int);
-void addMat(int**,int,int,int**,int,int,int**,int,int);
-int traceMat(int**,int,int);
-int detMat(int **,int,int);
+void afficheMat(double**,int,int);
+double** createMat(int,int);
+void delMat(double**,int,int);
+void remplirMatAlea(double**,int,int);
+void multMat(double**,int,int,double**,int,int,double**,int,int);
+void remplirMat(double**,int,int);
+void remplirMatZero(double**,int,int);
+void addMat(double**,int,int,double**,int,int,double**,int,int);
+double traceMat(double**,int,int);
+double detMat(double**,int,int);
 
 
 
 
 int main(){
-    int** tab1;
+    double** tab1;
     int lgtab1=0, coltab1=0;
     time_t t;
     srand((unsigned) time(&t));
@@ -44,16 +44,16 @@ int main(){
     printf("On va créer le tableau\n");
     tab1=createMat(lgtab1,coltab1);
     remplirMatZero(tab1,lgtab1,coltab1);
-    printf("On affiche le tableau\n");
-    afficheMat(tab1,lgtab1,coltab1);
-    printf("On remplis le tableau\n");
+    //printf("On affiche le tableau\n");
+    //afficheMat(tab1,lgtab1,coltab1);
+    //printf("On remplis le tableau\n");
     remplirMatAlea(tab1,lgtab1,coltab1);
     printf("On affiche le tableau random\n");
     afficheMat(tab1,lgtab1,coltab1);
     //remplirMat(tab1,lgtab1,coltab1);
     //afficheMat(tab1,lgtab1,coltab1);
-    printf("On crée le tableau 2");
-    int ** tab2;
+    printf("On crée le tableau 2\n");
+    double** tab2;
     int lgtab2, coltab2;
     printf("Entrer le nombre de ligne du tableau 2\n");
     scanf("%d",&lgtab2);
@@ -62,48 +62,50 @@ int main(){
     tab2=createMat(lgtab2,coltab2);
     remplirMatAlea(tab2,lgtab2,coltab2);
     afficheMat(tab2,lgtab2,coltab2);
-    int** tab3;
+    double** tab3;
     int lgtab3,coltab3;
-    printf("Entrer le nombre de ligne du tableau 2\n");
+    printf("Entrer le nombre de ligne du tableau 3\n");
     scanf("%d",&lgtab3);
-    printf("Entrer le nombre de colone du tableau 2\n");
+    printf("Entrer le nombre de colone du tableau 3\n");
     scanf("%d",&coltab3);
     tab3=createMat(lgtab3,coltab3);
     addMat(tab1,lgtab1,coltab1,tab2,lgtab2,coltab2,tab3,lgtab3,coltab3);
+    printf("Voici le tableau1 et 2 ajouter : \n");
     afficheMat(tab3,lgtab3,coltab3);
+    printf("Voici le tableau 1 et 2 multiplier : \n");
     multMat(tab1,lgtab1,coltab1,tab2,lgtab2,coltab2,tab3,lgtab3,coltab3);
     afficheMat(tab3,lgtab3,coltab3);
 
-    printf("La trace de la matrice 1 vaut %d \n",traceMat(tab1,lgtab1,coltab1));
+    printf("La trace de la matrice 1 vaut %f \n",traceMat(tab1,lgtab1,coltab1));
 
+    printf("Le déterminant de la matrice vaut %f \n",detMat(tab1,lgtab1,coltab1));
 
-
-    printf("On détruit le tableau\n");
+    printf("On détruit les tableaux\n");
     delMat(tab1,lgtab1,coltab1);
     delMat(tab2,lgtab2,coltab2);
     delMat(tab3,lgtab3,coltab3);
 }
 
-int** createMat(int i, int j){
-    int** tab;
-    tab=malloc(i*sizeof(int*));
+double** createMat(int i, int j){
+    double** tab;
+    tab=malloc(i*sizeof(double*));
     for (int k=0;k<i;k++){
-        tab[k]=malloc(j*sizeof(int));
+        tab[k]=malloc(j*sizeof(double));
     }
 return tab;
 }
 
-void afficheMat(int** tab, int i, int j){
+void afficheMat(double** tab, int i, int j){
 int ii, jj;
     for (ii=0;ii<i;ii++){
         for (jj=0;jj<j;jj++){
-            printf("%d ",tab[ii][jj]);
+            printf("%f ",tab[ii][jj]);
         }
         printf("\n");
     }
 }
 
-void delMat(int** tab, int i, int j){
+void delMat(double** tab, int i, int j){
 for (int k=0; k<i;k++){
     free(tab[k]);
 }
@@ -111,15 +113,15 @@ free(tab);
 }
 
 
-void remplirMatAlea(int** tab, int i, int j){
+void remplirMatAlea(double** tab, int i, int j){
 int ii, jj;
 for (ii=0;ii<i;ii++){
 for (jj=0;jj<j;jj++){
-    tab[ii][jj]=rand()%99;
+    tab[ii][jj]=rand()%9;
 }
 }
 }
-void remplirMatZero(int** tab, int i, int j){
+void remplirMatZero(double** tab, int i, int j){
 int ii, jj;
 for (ii=0;ii<i;ii++){
 for (jj=0;jj<j;jj++){
@@ -129,19 +131,19 @@ for (jj=0;jj<j;jj++){
 }
 
 
-void remplirMat(int** tab, int i, int j){
+void remplirMat(double** tab, int i, int j){
 int ii, jj;
-int val=0;
+double val=0;
 for (ii=0;ii<i;ii++){
 for (jj=0;jj<j;jj++){
     printf("Entrer la valeur de la case %d %d \n",ii,jj);
-    scanf("%d",&val);
+    scanf("%lf",&val);
     tab[ii][jj]=val;
 }
 }
 }
 
-void addMat(int** tab1,int lgtab1,int coltab1,int** tab2,int lgtab2, int coltab2,int** tabres,int lgtabres,int coltabres){
+void addMat(double** tab1,int lgtab1,int coltab1,double** tab2,int lgtab2, int coltab2,double** tabres,int lgtabres,int coltabres){
     if ((lgtab1==lgtab2)&&(coltab1==coltab2)){
         for (int ii=0;ii<lgtab1;ii++){
             for (int jj=0;jj<coltab1;jj++){
@@ -155,9 +157,9 @@ void addMat(int** tab1,int lgtab1,int coltab1,int** tab2,int lgtab2, int coltab2
 
 
 
-void multMat(int** tab1,int lgtab1,int coltab1,int** tab2,int lgtab2, int coltab2,int** tabres,int lgtabres,int coltabres){
+void multMat(double** tab1,int lgtab1,int coltab1,double** tab2,int lgtab2, int coltab2,double** tabres,int lgtabres,int coltabres){
 int ia,ii,jj;
-int somme=0;
+double somme=0;
     if (coltab1==lgtab2){
         for (ii=0;ii<lgtab2;ii++){
             for (jj=0;jj<lgtab2;jj++){
@@ -176,8 +178,8 @@ int somme=0;
 
 }
 
-int traceMat(int** tab,int lg,int col){
-int trace=0;
+double traceMat(double** tab,int lg,int col){
+double trace=0;
     if (lg==col){
         for (int i=0; i<lg;i++){
             trace=trace+tab[i][i];
@@ -196,47 +198,49 @@ return trace;
 
 
 
-int detMat(int** tab, int lg, int col){
-int det=0;
-int tab2[lg-1][col-1];
+double detMat(double** tab, int lg, int col){
+double det=0;
+int taboule,pantalon,serviette;
+int tshirt=0,pizza=0;
+int mouton=0;
+double** tab2=createMat(lg-1,col-1);
     if (lg==col){
-        if (lg==2){
-          det=tab[0][0]*tab[1][1]-tab[0][1]*tab[1][0];
+        if (lg==2){ // SI ON A UN TABLEAU DE 2 CASES SUR 2, ON FAIT CA
+	  //printf("Blabla tab 2x2\n");
+	  det=tab[0][0]*tab[1][1]-tab[0][1]*tab[1][0];
+	  delMat(tab2,lg-1,col-1);
           return det;  
         }
-        else {
-            
+        else { // SINON ON FAIT CA
+		for (taboule=0;taboule<lg;taboule++){
+			for (serviette=0;serviette<lg;serviette++){
+				if (serviette!=taboule){
+					
+				
+				for (pantalon=1;pantalon<lg;pantalon++){
+					
+					tab2[tshirt][pizza]=tab[serviette][pantalon];
+				pizza++;
+				}
+				pizza=0;
+				tshirt++;
+				}
+			}
+		tshirt=0;
+		
+		mouton=taboule+1;
+		mouton=mouton%2;
+		if (mouton==0){
+			mouton=mouton-1;
+		}
+		det=detMat(tab2,lg-1,col-1)*tab[taboule][0]*mouton+det;
+		
+		}
+	}		
+        }	  
+    delMat(tab2,lg-1,col-1);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-    }
+return det;
 }
 
 
