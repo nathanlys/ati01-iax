@@ -17,26 +17,28 @@ tab[i]=malloc(3*sizeof(int));
 }
 */
 
-double factorielite(int);
-double factorielecu(int,double);
+long factorielite(int);
+long factorielecu(int,long);
 
 
 int main(){
-int chaussuredroite=0;
-double chaussuregauche=0;
-printf("Merci de rentrer l'entier afin de calculer la factorielle en itératif : \n");
-scanf("%d",&chaussuredroite);
-chaussuregauche=factorielite(chaussuredroite);
-printf("La factorielle de %d vaut %f\n",chaussuredroite,chaussuregauche);
+	int chaussuredroite=0;
+	long chaussuregauche=0;
+	
+	printf("Merci de rentrer l'entier afin de calculer la factorielle en itératif : \n");
+	scanf("%d",&chaussuredroite);
+	chaussuregauche=factorielite(chaussuredroite);
+	
+	printf("La factorielle de %d vaut %ld\n",chaussuredroite,chaussuregauche);
 
-printf("Merci de rentrer l'entier afin de calculer la factorielle en récursif : \n");
-scanf("%d",&chaussuredroite);
-chaussuregauche=factorielecu(chaussuredroite,1);
-printf("La factorielle de %d vaut %f\n",chaussuredroite,chaussuregauche);
+	printf("Merci de rentrer l'entier afin de calculer la factorielle en récursif : \n");
+	scanf("%d",&chaussuredroite);
+	chaussuregauche=factorielecu(chaussuredroite,1);
+	printf("La factorielle de %d vaut %ld\n",chaussuredroite,chaussuregauche);
 }
 
-double factorielite(int a){
-	double fact=1;
+long factorielite(int a){
+	long fact=1;
 	int i=0;
 	if (a==0){
 		return 1;
@@ -47,7 +49,7 @@ double factorielite(int a){
 	return fact;
 }
 
-double factorielecu(int a,double fact){
+long factorielecu(int a,long fact){
 	if (a==0){
 		return fact;
 	}
