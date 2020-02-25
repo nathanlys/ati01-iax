@@ -67,7 +67,33 @@ affichePoly(&chevre);
 
 
 
+
 }
+
+void divPoly(struct poly_s* src, struct poly_s* placard, struct poly_s* dst){
+// Calcul P1
+// d'après https://fr.wikipedia.org/wiki/Division_d%27un_polyn%C3%B4me#Exemple_et_algorithme
+   
+    struct poly_s p1;
+    p1.taille=src->taille-placard->taille;
+    rempPolyZero(&p1);
+    p1.tab[p1.taille]=src->tab[src->taille]/placard->tab[placard->taille];
+    p1.tab[p1.taille]=-p1.tab[p1.taille];
+    struct poly_s r1;
+    r1.taille=src->taille;
+    rempPolyZero(&r1);
+    struct poly_s p1b;
+    p1b.taille=src->taille;
+    multPoly(&p1,placard,&p1b);
+    addPoly(src,&p1b,&r1);
+    
+
+
+}
+
+
+
+
 
 
 void multPoly(struct poly_s* src,struct poly_s* placard,struct poly_s* dst){
