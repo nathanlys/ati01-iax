@@ -33,9 +33,9 @@ double calcPoly(struct poly_s*,double);
 void derivPoly(struct poly_s*,struct poly_s*);
 void addPoly(struct poly_s*,struct poly_s*,struct poly_s*);
 void rempPolyZero(struct poly_s*);
-
-
-
+void divPoly(struct poly_s*,struct poly_s*,struct poly_s*);
+void rempPoly(struct poly_s*);
+int maxPoly(struct poly_s*);
 
 int main(){
     time_t t;
@@ -64,31 +64,63 @@ rempPolyZero(&chevre);
 multPoly(&test,&yeet,&chevre);
 printf("La multiplication du poly et du dérivé vaut : \n");
 affichePoly(&chevre);
+struct poly_s a,b,c;
 
+printf("Quel est l'exposant le plus haut de votre polynomes ? \n");
+scanf("%d",&a.taille);
 
+printf("Quel est l'exposant le plus haut de votre polynomes ? \n");
+scanf("%d",&b.taille);
+rempPoly(&a);
+rempPoly(&b);
 
+divPoly(&a,&b,&c);
 
 }
 
-void divPoly(struct poly_s* src, struct poly_s* placard, struct poly_s* dst){
-// Calcul P1
-// d'après https://fr.wikipedia.org/wiki/Division_d%27un_polyn%C3%B4me#Exemple_et_algorithme
-   
-    struct poly_s p1;
-    p1.taille=src->taille-placard->taille;
-    rempPolyZero(&p1);
-    p1.tab[p1.taille]=src->tab[src->taille]/placard->tab[placard->taille];
-    p1.tab[p1.taille]=-p1.tab[p1.taille];
-    struct poly_s r1;
-    r1.taille=src->taille;
-    rempPolyZero(&r1);
-    struct poly_s p1b;
-    p1b.taille=src->taille;
-    multPoly(&p1,placard,&p1b);
-    addPoly(src,&p1b,&r1);
-    
+
+void divPoly(struct poly_s* A, struct poly_s* B, struct poly_s* Q){
+// On calcule P1
+struct poly_s p1,p2,r1,r2,r1prim,r2prim;
+p1.taille=A->taille-B->taille;
+rempPolyZero(&p1);
+p1.tab[p1.taille]=-1*A->tab[A->taille]*B->tab[B->taille];
+// On calcule R1
+multPoly(B,&p1,&r1prim);
+addPoly(&r1prim,A,&r1);
+r1.taille=maxPoly(&r1);
+// On calcule R2=R1-P2*B
+// On calcule P1
+p2.taille=r1.taille-B->taille;
+rempPolyZero(&p2);
+p2.tab[p2.taille]=-1*r1.tab[r1.taille]*B->tab[B->taille];
+// On calcule R2
+multPoly(B,&p2,&r2prim);
+addPoly(&r2prim,&r1,&r2);
+r2.taille=maxPoly(&r2);
+
+// ??
+printf("p1 vaut : \n");
+affichePoly(&p1);
+printf("r1 vaut : \n");
+affichePoly(&r1);
+printf("p2 vaut : \n");
+affichePoly(&p2);
+printf("r2 vaut : \n");
+affichePoly(&r2);
+
+}
+
+int maxPoly(struct poly_s* test){
+	for (int i=test->taille;i>=0;i--){
+		if (test->tab[i]!=0){
+			return i;
+		}
 
 
+
+	}
+return 0;
 }
 
 
